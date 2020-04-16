@@ -5,3 +5,19 @@ services:
 
   Bex\Behat\BehatRSTSpecificationLocatorExtension\:
     resource: '../../*'
+
+  Doctrine\RST\Parser: ~
+
+  Bex\Behat\BehatRSTSpecificationLocatorExtension\Gherkin\Specification\Locator\RSTSpecificationLocator:
+    arguments:
+      $gherkin: '@gherkin'
+      $basePath: '%paths.base%'
+    tags:
+      - { name: 'specifications.locator', priority: 60 }
+
+  Bex\Behat\BehatRSTSpecificationLocatorExtension\RST\Loader\RSTFileLoader:
+    arguments:
+      $gherkinParser: '@gherkin.parser'
+      $basePath: '%paths.base%'
+    tags:
+      - { name: 'gherkin.loader', priority: 60 }
