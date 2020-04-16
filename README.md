@@ -7,7 +7,7 @@ BehatRSTSpecificationLocatorExtension
 [![Build Status](https://scrutinizer-ci.com/g/tkotosz/BehatRSTSpecificationLocatorExtension/badges/build.png?b=master)](https://scrutinizer-ci.com/g/tkotosz/BehatRSTSpecificationLocatorExtension/build-status/master)
 [![Documentation Status](https://readthedocs.org/projects/behatrstspecificationlocatorextension/badge/?version=latest)](https://behatrstspecificationlocatorextension.readthedocs.io/en/latest/?badge=latest)
 
-The `BehatRSTSpecificationLocatorExtension` allows loading specifications from reStructuredText documentation.
+`BehatRSTSpecificationLocatorExtension` is a [Behat](https://behat.org) extension which allows loading specifications from [reStructuredText](https://docutils.sourceforge.io/rst.html) documentation.
 
 Installation
 ------------
