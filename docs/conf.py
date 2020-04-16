@@ -17,7 +17,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'Behat Magento 2 Extension'
+project = 'Behat RST Specification Locator Extension'
 copyright = '2020, Tibor Kotosz'
 author = 'Tibor Kotosz'
 
