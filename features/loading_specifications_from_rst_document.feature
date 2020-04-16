@@ -1,13 +1,15 @@
 Feature: Loading Specifications from RST document
 
-  Scenario: Loading and RST document with a single code block
+  Background:
     Given I have the configuration:
       """
       default:
         extensions:
           Bex\Behat\BehatRSTSpecificationLocatorExtension: ~
       """
-    And I have the RST documentation:
+
+  Scenario: Loading and RST document with a single code block
+    Given I have the RST documentation:
       """
       My awesome feature
       ==================
@@ -18,7 +20,7 @@ Feature: Loading Specifications from RST document
 
       .. code-block:: gherkin
 
-        Scenario:
+        Scenario: My first scenario
           Given I have a step
           When I have another step
           Then I am happy
@@ -51,3 +53,75 @@ Feature: Loading Specifications from RST document
       """
     When I run Behat
     Then I should see a passing scenario
+
+  Scenario: Loading and RST document with a multiple code block
+    Given I have the RST documentation:
+      """
+      My awesome feature
+      ==================
+
+      This feature is the best one in the world. This document contains many things about it. Have fun reading it.
+
+      For example it can perform magic, e.g.:
+
+      .. code-block:: gherkin
+
+        Scenario: My 1st scenario
+          Given I have a step
+          When I have another step
+          Then I am happy
+
+      It can also do other stuff, here is few example:
+
+      .. code-block:: gherkin
+
+        Scenario: My 1st scenario
+          Given I have a step
+          When I have another step
+          Then I am happy
+
+        Scenario: My 2nd scenario
+          Given I have a step
+          When I have another step
+          Then I am happy
+
+        Scenario: My 3rd scenario
+          Given I have a step
+          When I have another step
+          Then I am happy
+
+      Note that something it does an evil thing, see:
+
+      .. code-block:: gherkin
+
+        Scenario: My 1st scenario
+          Given I have a step
+          When I have another step
+          Then I am happy
+      """
+    And I have the context:
+      """
+      <?php
+
+      use Behat\Behat\Context\Context;
+
+      class FeatureContext implements Context
+      {
+          /**
+           * @Given I have a step
+           */
+          function passingStep() {}
+
+          /**
+           * @When I have another step
+           */
+          function anotherPassingStep() {}
+
+          /**
+           * @Then I am happy
+           */
+          function iAmHappy() {}
+      }
+      """
+    When I run Behat
+    Then I should see 5 passing scenarios

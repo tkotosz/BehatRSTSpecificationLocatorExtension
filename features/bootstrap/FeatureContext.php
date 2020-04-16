@@ -25,4 +25,12 @@ class FeatureContext extends TestRunnerContext
     {
         Assert::assertContains('1 scenario (1 passed)', $this->getStandardOutputMessage());
     }
+
+    /**
+     * @Then /^I should see (\d+) passing scenarios$/
+     */
+    public function iShouldSeePassingScenarios(int $count)
+    {
+        Assert::assertContains(sprintf('%1$d scenarios (%1$d passed)', $count), $this->getStandardOutputMessage());
+    }
 }
