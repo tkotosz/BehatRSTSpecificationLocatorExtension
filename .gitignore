@@ -1,0 +1,13 @@
+# Composer packages directory
+/vendor
+
+# Composer executable files directory
+/bin
+
+# Installed Composer packages versions
+/composer.lock
+
+# documentation local build directory
+docs/_build
+
+auth.json

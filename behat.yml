@@ -1,0 +1,5 @@
+default:
+  suites:
+    default:
+      contexts:
+        - Bex\Behat\BehatRSTSpecificationLocatorExtension\Acceptance\FeatureContext
