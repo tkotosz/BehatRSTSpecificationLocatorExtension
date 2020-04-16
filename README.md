@@ -7,7 +7,7 @@ BehatRSTSpecificationLocatorExtension
 [![Build Status](https://scrutinizer-ci.com/g/tkotosz/BehatRSTSpecificationLocatorExtension/badges/build.png?b=master)](https://scrutinizer-ci.com/g/tkotosz/BehatRSTSpecificationLocatorExtension/build-status/master)
 [![Documentation Status](https://readthedocs.org/projects/behatrstspecificationlocatorextension/badge/?version=latest)](https://behatrstspecificationlocatorextension.readthedocs.io/en/latest/?badge=latest)
 
-The `BehatRSTSpecificationLocatorExtension` provides a custom service container for Behat which allows to inject Magento services into Behat Contexts and Behat helper services.
+The `BehatRSTSpecificationLocatorExtension` allows loading specifications from reStructuredText documentation.
 
 Installation
 ------------
