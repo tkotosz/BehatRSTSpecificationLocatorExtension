@@ -7,12 +7,11 @@ filter:
 build:
   environment:
     php:
-      version: '7.1'
-      ini:
-        'always_populate_raw_post_data': '-1'
+      version: '7.2'
 
   dependencies:
     before:
+      - composer self-update
       - sed -i 's/zend_extension_ts=xdebug.so/;zend_extension_ts=xdebug.so/' ~/.phpenv/versions/$(phpenv global)/etc/php.ini
       - composer global require "hirak/prestissimo:^0.3"
 
