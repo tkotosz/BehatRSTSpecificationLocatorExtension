@@ -8,6 +8,10 @@ services:
 
   Doctrine\RST\Parser: ~
 
+  Bex\Behat\BehatRSTSpecificationLocatorExtension\RST\Parser:
+    arguments:
+      $gherkinParser: '@gherkin.parser'
+
   Bex\Behat\BehatRSTSpecificationLocatorExtension\Gherkin\Specification\Locator\RSTSpecificationLocator:
     arguments:
       $gherkin: '@gherkin'
@@ -17,7 +21,6 @@ services:
 
   Bex\Behat\BehatRSTSpecificationLocatorExtension\RST\Loader\RSTFileLoader:
     arguments:
-      $gherkinParser: '@gherkin.parser'
       $basePath: '%paths.base%'
     tags:
       - { name: 'gherkin.loader', priority: 60 }

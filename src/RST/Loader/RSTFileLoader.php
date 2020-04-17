@@ -2,9 +2,9 @@
 
 namespace Bex\Behat\BehatRSTSpecificationLocatorExtension\RST\Loader;
 
+use Behat\Gherkin\Cache\CacheInterface;
 use Behat\Gherkin\Loader\AbstractFileLoader;
 use Behat\Gherkin\Node\FeatureNode;
-use Behat\Gherkin\Parser as GherkinParser;
 use Bex\Behat\BehatRSTSpecificationLocatorExtension\RST\Parser as RSTParser;
 
 /**
@@ -25,13 +25,13 @@ class RSTFileLoader extends AbstractFileLoader
     /** @var RSTParser */
     private $rstParser;
 
-    /** @var GherkinParser */
-    private $gherkinParser;
+    /** @var CacheInterface */
+    private $cache;
 
-    public function __construct(RSTParser $rstParser, GherkinParser $gherkinParser, string $basePath)
+    public function __construct(RSTParser $rstParser, CacheInterface $cache, string $basePath)
     {
         $this->rstParser = $rstParser;
-        $this->gherkinParser = $gherkinParser;
+        $this->cache = $cache;
         $this->basePath = $basePath;
     }
 
@@ -53,9 +53,18 @@ class RSTFileLoader extends AbstractFileLoader
     {
         $path = $this->findAbsolutePath($path);
 
-        $gherkinContent = $this->rstParser->parse(file_get_contents($path));
-        $feature = $this->gherkinParser->parse($gherkinContent, $path);
+        // TODO clean this up a bit, copied over from GherkinFileLoader
+        if ($this->cache->isFresh($path, filemtime($path))) {
+            $feature = $this->cache->read($path);
+        } elseif (null !== $feature = $this->parseFeature($path)) {
+            $this->cache->write($path, $feature);
+        }
 
         return null !== $feature ? [$feature] : [];
+    }
+
+    private function parseFeature(string $path): ?FeatureNode
+    {
+        return $this->rstParser->parse(file_get_contents($path), $path);
     }
 }
