@@ -25,7 +25,7 @@ class Parser
     {
         $document = $this->parser->parse($input);
         $codeNodes = $document->getNodes(function ($node) {
-            return $node instanceof CodeNode;
+            return ($node instanceof CodeNode) && $node->getLanguage() === 'gherkin';
         });
         $feature = $document->getTitle();
 

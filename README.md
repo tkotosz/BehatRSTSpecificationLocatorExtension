@@ -26,7 +26,6 @@ The official documentation is available [here](https://behat-rst-specification-l
 
 TODO
 ----
-- Only parse Gherkin code blocks
 - Parse code blocks embedded inside a quote block (happens when indenting the code block)
 - Use the GherkinExtension's cache configuration if possible otherwise add proper cache configuration for the extension
 - Add tests for running behat with file path as parameter
