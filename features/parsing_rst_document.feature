@@ -145,3 +145,25 @@ Feature: Parsing RST document
       """
     When I run Behat
     Then I should see 4 passing scenarios
+
+  Scenario: Parsing an RST document with a code block inside a quote block
+    Given I have the RST documentation:
+      """
+      My awesome feature
+      ==================
+
+      This feature is the best one in the world. This document contains many things about it. Have fun reading it.
+
+      For example it can perform magic, e.g.:
+
+        .. code-block:: gherkin
+
+          Scenario: My first scenario
+            Given I have a step
+            When I have another step
+            Then I am happy
+
+      Also it can do other stuff as well. Doc will be updated later. :)
+      """
+    When I run Behat
+    Then I should see a passing scenario
