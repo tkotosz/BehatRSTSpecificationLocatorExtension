@@ -26,7 +26,6 @@ The official documentation is available [here](https://behat-rst-specification-l
 
 TODO
 ----
-- Use the GherkinExtension's cache configuration if possible otherwise add proper cache configuration for the extension
 - Add tests for running behat with file path as parameter
 - Add tests for running behat with folder path as parameter
 - Add tests for running behat without path parameter (cases: path configured in suite, path not configured)

@@ -2,7 +2,6 @@
 
 namespace Bex\Behat\BehatRSTSpecificationLocatorExtension\ServiceContainer;
 
-use Behat\Gherkin\Cache\CacheInterface;
 use Behat\Gherkin\Cache\FileCache;
 use Behat\Gherkin\Cache\MemoryCache;
 use Behat\Testwork\ServiceContainer\Extension;
@@ -30,7 +29,19 @@ class BehatRSTSpecificationLocatorExtension implements Extension
 
     public function configure(ArrayNodeDefinition $builder)
     {
-        // no-op
+        $builder
+            ->addDefaultsIfNotSet()
+                ->children()
+                    ->scalarNode('cache')
+                        ->info('Sets the rst gherkin parser cache folder')
+                        ->defaultValue(
+                            is_writable(sys_get_temp_dir())
+                                ? sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'behat_rst_gherkin_cache'
+                                : null
+                        )
+                    ->end()
+                ->end()
+        ;
     }
 
     public function load(ContainerBuilder $container, array $config)
@@ -39,19 +50,13 @@ class BehatRSTSpecificationLocatorExtension implements Extension
         $loader->load('services.yml');
         $container->getDefinition(Config::class)->addArgument($config);
 
-        // @TODO figure out if it is possible to get access to the GherkinExtension's config
-        //       if not possible then we need a separate config with a separate cache location
-        $cachePath = is_writable(sys_get_temp_dir())
-            ? sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'behat_gherkin_cache'
-            : null;
-
-        if ($cachePath) {
-            $cacheDefinition = new Definition(FileCache::class, array($cachePath));
+        if (!empty($config['cache'])) {
+            $cacheDefinition = new Definition(FileCache::class, array($config['cache']));
         } else {
             $cacheDefinition = new Definition(MemoryCache::class);
         }
 
-        $container->setDefinition(CacheInterface::class, $cacheDefinition);
+        $container->getDefinition(RSTFileLoader::class)->setArgument('$cache', $cacheDefinition);
     }
 
     public function process(ContainerBuilder $container)

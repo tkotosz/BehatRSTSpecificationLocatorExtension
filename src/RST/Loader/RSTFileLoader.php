@@ -43,7 +43,7 @@ class RSTFileLoader extends AbstractFileLoader
     }
 
     /**
-     * Loads features from provided resource.
+     * Loads features from provided resource (logic is based on GherkinFileLoader)
      *
      * @param string $path Resource to load
      *
@@ -53,7 +53,6 @@ class RSTFileLoader extends AbstractFileLoader
     {
         $path = $this->findAbsolutePath($path);
 
-        // TODO clean this up a bit, copied over from GherkinFileLoader
         if ($this->cache->isFresh($path, filemtime($path))) {
             $feature = $this->cache->read($path);
         } elseif (null !== $feature = $this->parseFeature($path)) {
